@@ -1,2 +1,2 @@
-# vue2-ele
-一个vue练习demo
+# vue2-sell
+练习demo
