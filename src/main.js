@@ -6,6 +6,7 @@ import App from './App';
 import Goods from './views/goods/goods.vue';
 import Ratings from './views/ratings/ratings.vue';
 import Seller from './views/seller/seller.vue';
+import './common/style/index.scss';
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -14,11 +15,13 @@ const routes = [
   { path: '/', redirect: '/goods' },
   { path: '/goods', component: Goods },
   { path: '/ratings', component: Ratings },
-  { path: '/seller', component: Seller }
+  { path: '/seller', component: Seller },
+  { path: '*', component: Seller }
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
+  linkActiveClass: 'active'
 });
 /* eslint-disable no-new */
 const app = new Vue({
@@ -26,10 +29,5 @@ const app = new Vue({
   el: '#app',
   render: h => h(App)
 });
-// /* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   components: { App },
-//   template: '<App/>'
-// });
+
 export {app, router, App};
