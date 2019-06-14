@@ -7,10 +7,10 @@ import Goods from './views/goods/goods.vue';
 import Ratings from './views/ratings/ratings.vue';
 import Seller from './views/seller/seller.vue';
 import './common/style/index.scss';
-
+import api from './common/api';
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
-
+Vue.prototype.$api = api;
 const routes = [
   { path: '/', redirect: '/goods' },
   { path: '/goods', component: Goods },

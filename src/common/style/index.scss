@@ -1,3 +1,8 @@
+body, html{
+    line-height: 1;
+    font-weight: 200;
+    font-family: 'Pingfang SC','STHeitisc-Light','Helvetica-Light',Arial, Helvetica, sans-serif;
+}
 @import './base.scss';
 @import './icon.scss';
 @import './mixin.scss';

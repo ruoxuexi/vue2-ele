@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -20,7 +20,33 @@
   import header from './components/header/header.vue';
   export default {
     name: 'App',
-    components: {'v-header': header}
+    components: {'v-header': header},
+    data () {
+      return {
+        seller: {}
+      };
+    },
+    methods: {
+      getGoods () {
+        this.$api.get('/seller',
+          {},
+          res => {
+            if (res.ret.retCode === '0') {
+              this.seller = res.data;
+              console.log(this.seller);
+            } else {
+              console.log(res.ret);
+            }
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
+    },
+    created () {
+      this.getGoods();
+    }
   };
 </script>
 
