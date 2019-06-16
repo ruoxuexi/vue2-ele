@@ -3,6 +3,17 @@ body, html{
     font-weight: 200;
     font-family: 'Pingfang SC','STHeitisc-Light','Helvetica-Light',Arial, Helvetica, sans-serif;
 }
+.clearfix{
+    display: inline-block;
+    &:after{
+        display: block;
+        content: '';
+        height: 0;
+        line-height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+}
 @import './base.scss';
 @import './icon.scss';
 @import './mixin.scss';
