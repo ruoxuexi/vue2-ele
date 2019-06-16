@@ -2,14 +2,19 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import ElementUI from 'element-ui';
 import App from './App';
 import Goods from './views/goods/goods.vue';
 import Ratings from './views/ratings/ratings.vue';
 import Seller from './views/seller/seller.vue';
+import 'element-ui/lib/theme-chalk/index.css';
 import './common/style/index.scss';
 import api from './common/api';
+
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+Vue.use(ElementUI);
+
 Vue.prototype.$api = api;
 const routes = [
   { path: '/', redirect: '/goods' },
