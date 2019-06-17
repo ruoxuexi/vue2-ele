@@ -33,7 +33,6 @@
           res => {
             if (res.ret.retCode === '0') {
               this.seller = res.data;
-              console.log(this.seller);
             } else {
               console.log(res.ret);
             }
