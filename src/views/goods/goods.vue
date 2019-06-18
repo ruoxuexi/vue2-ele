@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
+    <div class="menu-wrapper" ref="menu-wrapper">
       <ul>
         <li v-for="(item, index) in goods" :key="index" class="menu-item">
           <span class="text border-1px">
@@ -9,7 +9,7 @@
         </li>
       </ul>
     </div>
-    <div class="foods-wrapper">
+    <div class="foods-wrapper" ref="foods-wrapper">
       <ul>
         <li v-for="(item, index) in goods" :key="index" class="food-list">
           <h1 class="title">{{item.name}}</h1>
@@ -26,8 +26,7 @@
                   <span>好评率{{food.rating}}</span>
                 </div>
                 <div class="price">
-                  <span class="now">￥{{food.price}}</span>
-                  <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+                  <span class="now">￥{{food.price}}</span><span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
               </div>
             </li>
@@ -40,6 +39,7 @@
 
 <script>
   import icon from '@/components/icon/icon.vue';
+  import BScroll from '@better-scroll/core';
   export default {
     components: {
       icon
@@ -51,7 +51,10 @@
       };
     },
     methods: {
-
+      _initScroll () {
+        this.menuScroll = new BScroll(this.$refs['menu-wrapper'], {});
+        this.foodsScroll = new BScroll(this.$refs['foods-wrapper'], {});
+      }
     },
     created () {
       this.$api.get('/goods',
@@ -59,6 +62,9 @@
         res => {
           if (res.ret.retCode === '0') {
             this.goods = res.data;
+            this.$nextTick(() => {
+              this._initScroll();
+            });
           } else {
             console.log(res.ret);
           }
@@ -143,6 +149,7 @@
               color: rgb(147, 153, 159);
             }
             .desc{
+              line-height: 12px;
               margin-bottom: 8px;
             }
             .extra{
