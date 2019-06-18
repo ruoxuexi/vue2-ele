@@ -4,7 +4,7 @@
       <ul>
         <li v-for="(item, index) in goods" :key="index" class="menu-item">
           <span class="text border-1px">
-            <span v-if="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
+            <span v-if="item.type>0" class="icon"><icon :icon='3' :type='item.type'></icon></span>{{item.name}}
           </span>
         </li>
       </ul>
@@ -39,19 +39,21 @@
 </template>
 
 <script>
+  import icon from '@/components/icon/icon.vue';
   export default {
+    components: {
+      icon
+    },
     props: ['seller'],
     data () {
       return {
-        goods: [],
-        classMap: []
+        goods: []
       };
     },
     methods: {
 
     },
     created () {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
       this.$api.get('/goods',
         {},
         res => {
@@ -91,26 +93,6 @@
         .icon{
           display: inline-block;
           vertical-align: top;
-          width: 12px;
-          height: 12px;
-          margin-right: 2px;
-          &.decrease{
-            @include bg-image('decrease_3');
-          }
-          &.discount{
-            @include bg-image('discount_3');
-          }
-          &.guarantee{
-            @include bg-image('guarantee_3');
-          }
-          &.invoice{
-            @include bg-image('invoice_3');
-          }
-          &.special{
-            @include bg-image('special_3');
-          }
-          background-size: 12px 12px!important;
-          background-repeat: no-repeat!important;
         }
         .text{
           display: table-cell;
