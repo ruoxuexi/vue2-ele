@@ -34,15 +34,19 @@
         </li>
       </ul>
     </div>
+    <shopcart></shopcart>
   </div>
 </template>
 
 <script>
   import icon from '@/components/icon/icon.vue';
   import BScroll from '@better-scroll/core';
+  import shopcart from '@/components/shopcart/shopcart.vue';
+
   export default {
     components: {
-      icon
+      icon,
+      shopcart
     },
     props: ['seller'],
     data () {
