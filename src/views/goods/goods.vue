@@ -34,7 +34,7 @@
         </li>
       </ul>
     </div>
-    <shopcart></shopcart>
+    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
 </template>
 
@@ -51,6 +51,7 @@
     props: ['seller'],
     data () {
       return {
+        selectFoods: [{price: 10, count: 1}],
         goods: [],
         listHeight: [],
         scrollY: 0
@@ -69,10 +70,11 @@
       }
     },
     methods: {
-      selectMenu (index, e) {
-        if (!e._constructed) {
-          return;
-        }
+      selectMenu (index) {
+        // 高版本beter-scroll已经修改了PC短click事件执行两次的bug
+        // if (!e._constructed) {
+        //   return;
+        // }
         let foodList = this.$refs['foods-wrapper'].getElementsByClassName('food-list-hook');
         let el = foodList[index];
         this.foodsScroll.scrollToElement(el, 300);
