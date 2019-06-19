@@ -56,7 +56,6 @@
     props: ['seller'],
     data () {
       return {
-        selectFoods: [{price: 10, count: 1}],
         goods: [],
         listHeight: [],
         scrollY: 0
@@ -72,6 +71,17 @@
           }
         }
         return 0;
+      },
+      selectFoods () {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
     },
     methods: {
