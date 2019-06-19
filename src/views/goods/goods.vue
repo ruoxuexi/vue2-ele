@@ -28,6 +28,9 @@
                 <div class="price">
                   <span class="now">￥{{food.price}}</span><span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
@@ -42,11 +45,13 @@
   import icon from '@/components/icon/icon.vue';
   import BScroll from '@better-scroll/core';
   import shopcart from '@/components/shopcart/shopcart.vue';
+  import cartcontrol from '@/components/cartcontrol/cartcontrol.vue';
 
   export default {
     components: {
       icon,
-      shopcart
+      shopcart,
+      cartcontrol
     },
     props: ['seller'],
     data () {
@@ -226,6 +231,11 @@
                 font-size: 10px;
                 color: rgb(147, 153, 159);
               }
+            }
+            .cartcontrol-wrapper{
+              position: absolute;
+              right: 0;
+              bottom: 12px;
             }
           }
         }
