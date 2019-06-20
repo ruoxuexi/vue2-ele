@@ -6,13 +6,14 @@
       </div>
     </transition>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add"  @click.stop="addCart">
+    <div class="cart-add"  @click.stop="add">
       <i class="el-icon-circle-plus"></i>
     </div>
   </div>
 </template>
 
 <script>
+  const EVENT_ADD = 'add';
   export default {
     props: [
       'food'
@@ -23,12 +24,13 @@
       };
     },
     methods: {
-      addCart () {
+      add (event) {
         if (!this.food.count) {
           this.$set(this.food, 'count', 1);
         } else {
           this.food.count++;
         }
+        this.$emit(EVENT_ADD, event.target);
       },
       decreaseCart () {
         if (this.food.count) {

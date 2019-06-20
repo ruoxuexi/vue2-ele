@@ -29,7 +29,7 @@
                   <span class="now">￥{{food.price}}</span><span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
                 <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <cartcontrol @add="onAdd" :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -37,7 +37,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
+    <shopcart ref="shopcart" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
 </template>
 
@@ -85,6 +85,9 @@
       }
     },
     methods: {
+      onAdd (el) {
+        this.$refs.shopcart.drop(el);
+      },
       selectMenu (index) {
         // 高版本beter-scroll已经修改了PC短click事件执行两次的bug
         // if (!e._constructed) {
