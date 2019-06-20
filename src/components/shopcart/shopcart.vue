@@ -1,6 +1,6 @@
 <template>
     <div class="shopcart">
-        <div class="content">
+        <div class="content" @click="toggleList">
             <div class="content-left">
                 <div class="logo-wrapper">
                     <div class="logo" :class="{'highlight':totalCount>0}">
@@ -70,13 +70,19 @@
         data () {
             return {
                 balls: createBalls(),
-                listShow: false
+                fold: true
             };
         },
         created () {
             this.dropBalls = [];
         },
         methods: {
+            toggleList () {
+                if (!this.totalCount) {
+                    return;
+                }
+                this.fold = !this.fold;
+            },
             beforeDrop (el) {
                 // 拿到最后一个也就是最后点击的(最后下落的)那个小球
                 const ball = this.dropBalls[this.dropBalls.length - 1];
@@ -149,6 +155,13 @@
                 } else {
                     return 'enough';
                 }
+            },
+            listShow () {
+                if (!this.totalCount) {
+                    this.fold = true;
+                    return false;
+                }
+                return true;
             }
         }
     };
@@ -271,6 +284,13 @@
                     transition: all 0.4s linear;
                 }
             }
+        }
+        .shopcart-list{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
         }
     }
 </style>
