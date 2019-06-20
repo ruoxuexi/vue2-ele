@@ -37,7 +37,7 @@
         </li>
       </ul>
     </div>
-    <shopcart ref="shopcart" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
+    <shopcart ref="shopCart" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice" :select-foods="selectFoods"></shopcart>
   </div>
 </template>
 
@@ -86,7 +86,7 @@
     },
     methods: {
       onAdd (el) {
-        this.$refs.shopcart.drop(el);
+        this.$refs.shopCart.drop(el);
       },
       selectMenu (index) {
         // 高版本beter-scroll已经修改了PC短click事件执行两次的bug

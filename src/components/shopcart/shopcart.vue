@@ -61,9 +61,9 @@
                 const x = rect.left - 32;
                 const y = -(window.innerHeight - rect.top - 22);
                 el.style.display = '';
-                el.style.transform = el.style.webkitTransform = `translate3d(0, ${y}, 0)`;
+                el.style.transform = el.style.webkitTransform = `translate3d(0, ${y}px, 0)`;
                 const inner = el.getElementsByClassName(innerClsHook)[0];
-                inner.style.transform = inner.style.webkitTransform = `translate3d(${x}, 0, 0)`;
+                inner.style.transform = inner.style.webkitTransform = `translate3d(${x}px, 0, 0)`;
             },
             dropping (el, done) {
                 // 触发浏览器重绘
@@ -240,7 +240,6 @@
                 z-index: 200;
                 transform: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.43);
                 .inner{
-                    // display: inline-block;
                     width: 16px;
                     height: 16px;
                     border-radius: 50%;
