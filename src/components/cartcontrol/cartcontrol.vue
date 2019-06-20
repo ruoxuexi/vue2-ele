@@ -1,12 +1,12 @@
 <template>
   <div class="cartcontrol">
     <transition name="decrease">
-      <div class="cart-decrease" v-show="food.count>0" @click="decreaseCart">
-        <i class="el-icon-remove-outline"></i>
+      <div class="cart-decrease" v-show="food.count>0" @click.stop="decreaseCart">
+        <i class="inner el-icon-remove-outline"></i>
       </div>
     </transition>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
-    <div class="cart-add"  @click="addCart">
+    <div class="cart-add"  @click.stop="addCart">
       <i class="el-icon-circle-plus"></i>
     </div>
   </div>
@@ -31,7 +31,11 @@
         }
       },
       decreaseCart () {
-        this.food.count--;
+        if (this.food.count) {
+          this.food.count--;
+        } else {
+          return false;
+        }
       }
     }
   };
@@ -41,21 +45,26 @@
   .cartcontrol{
     font-size: 0;
     .cart-decrease{
+      display: inline-block;
+      padding: 6px;
+      opacity: 1;
+      .inner{
+        display: inline-block;
+        line-height: 24px;
+        font-size: 24px;
+        color: rgb(0, 160, 220);
+        transition: all 0.4s linear;
+        transform: rotate(0);
+      }
       &.decrease-enter-active, &.decrease-leave-active{
-        transition: all .4s linear;
-        opacity: 1;
-        transform: translate3D(0, 0, 0);
+        transition: all 0.4s linear;
       }
       &.decrease-enter, &.decrease-leave-to{
         opacity: 0;
         transform: translate3D(24px, 0, 0);
-      }
-      display: inline-block;
-      line-height: 24px;
-      .el-icon-remove-outline{
-        padding: 6px;
-        font-size: 24px;
-        color: rgb(0, 160, 220);
+        .inner{
+          transform: rotate(180deg);
+        }
       }
     }
     .cart-count{
