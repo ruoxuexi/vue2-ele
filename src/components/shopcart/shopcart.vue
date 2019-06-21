@@ -29,25 +29,27 @@
                 </transition>
             </div>
         </div>
-        <div class="shopcart-list" v-show="listShow">
-            <div class="list-header">
-                <h1 class="title">购物车</h1>
-                <span class="empty">清空</span>
+        <transition name="show-detail">
+            <div class="shopcart-list" v-show="totalCount&&listShow">
+                <div class="list-header">
+                    <h1 class="title">购物车</h1>
+                    <span class="empty">清空</span>
+                </div>
+                <div class="list-content">
+                    <ul>
+                        <li class="food" v-for="(food,index) in selectFoods" :key="index">
+                            <span class="name">{{food.name}}</span>
+                            <div class="price">
+                                <span>￥{{food.price*food.count}}</span>
+                            </div>
+                            <div class="cartcontrol-wrapper">
+                                <cartcontrol :food="food"></cartcontrol>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="list-content">
-                <ul>
-                    <li class="food" v-for="(food,index) in selectFoods" :key="index">
-                        <span class="name">{{food.name}}</span>
-                        <div class="price">
-                            <span>￥{{food.price*food.count}}</span>
-                        </div>
-                        <div class="cartcontrol-wrapper">
-                            <cartcontrol :food="food"></cartcontrol>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -70,7 +72,8 @@
         data () {
             return {
                 balls: createBalls(),
-                fold: true
+                fold: false,
+                listShow: false
             };
         },
         created () {
@@ -79,9 +82,16 @@
         methods: {
             toggleList () {
                 if (!this.totalCount) {
-                    return;
+                    this.fold = false;
+                    this.listShow = false;
+                } else {
+                    this.fold = !this.fold;
+                    if (this.fold) {
+                        this.listShow = true;
+                    } else {
+                        this.listShow = false;
+                    }
                 }
-                this.fold = !this.fold;
             },
             beforeDrop (el) {
                 // 拿到最后一个也就是最后点击的(最后下落的)那个小球
@@ -155,13 +165,6 @@
                 } else {
                     return 'enough';
                 }
-            },
-            listShow () {
-                if (!this.totalCount) {
-                    this.fold = true;
-                    return false;
-                }
-                return true;
             }
         }
     };
@@ -291,6 +294,13 @@
             left: 0;
             z-index: -1;
             width: 100%;
+            transform: translate3d(0, -100%, 0);
+            &.show-detail-enter, &.show-detail-leave-to{
+                transform: translate3d(0, 0, 0);
+            }
+            &.show-detail-enter-active, &.show-detail-leave-active{
+                transition: all 1s ease;
+            }
         }
     }
 </style>
